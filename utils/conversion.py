@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 from vtkmodules.util.numpy_support import vtk_to_numpy as vtn
-import vtk 
 
 OUTER_RADIUS = 6378137 # Outer radius in meters
 ECCENTRICITY =0.081819190842622 # WGS84 eccentricity
