@@ -61,21 +61,20 @@ def conv_to_dataframe(data):
     point_coords = vtn(data.GetPoints().GetData())
     melt_fraction = vtn(data.GetPointData().GetArray("melt_fraction"))
 
-    x_coords = point_coords.T[0]
-    y_coords = point_coords.T[1]
-    z_coords = point_coords.T[2]
+    x_coords, y_coords, z_coords = point_coords.T
 
-    vect_lat = np.vectorize(conv_to_lat)
-    vect_long = np.vectorize(conv_to_long)
-    vect_depth = np.vectorize(calcDepth)
+    lattitude = conv_to_lat(x_coords, y_coords, z_coords)
+    longitude = conv_to_long(x_coords, y_coords)
+    depth = calcDepth(x_coords, y_coords, z_coords, lattitude)
+
 
     data_frame = pd.DataFrame({
-        'Latitude': vect_lat(x_coords, y_coords, z_coords),
-        'Longitude':vect_long(x_coords, y_coords),
-        'MeltFraction': melt_fraction,'Depth': np.nan 
+        'Latitude': lattitude,
+        'Longitude': longitude,
+        'MeltFraction': melt_fraction,
+        'Depth': depth
         })
 
-    data_frame.Depth = vect_depth(x_coords,y_coords,z_coords, data_frame.Latitude)
 
     return data_frame 
 
