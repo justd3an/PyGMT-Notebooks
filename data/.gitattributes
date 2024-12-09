@@ -1,0 +1,2 @@
+*.vtu filter=lfs diff=lfs merge=lfs -text
+revised_viscosity_litho_ts11_T1763.vtu filter=lfs diff=lfs merge=lfs -text
